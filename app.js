@@ -39,14 +39,17 @@ addPage('Problem 2', db.exec(`
 `));
 
 //problem3
-addPage('problem 3', db.exec(`
-    SELECT title,year, rating
+addPage('Problem 3', db.exec(`
+    SELECT title, year, rating
     FROM movies
-    WHERE genres LIKE '%Horror%' AND rating_count > 19
+    WHERE genres LIKE '%Horror%'
+      AND rating_count >= 20
+    ORDER BY rating DESC, title, id
+    LIMIT 5;
 `))
 
 //problem4
-addPage('problem 4', db.exec(`
+addPage('Problem 4', db.exec(`
     SELECT title, year, rating
     FROM movies
     WHERE year = 2000 AND genres LIKE '%Comedy%'
@@ -55,37 +58,45 @@ addPage('problem 4', db.exec(`
 `))
 
 //problem5
-addPage('problem 5', db.exec(`
-    SELECT title, year, rating FROM movies WHERE year = 2010 OR year > 2010 ORDER BY title LIMIT 12
+addPage('Problem 5', db.exec(`
+    SELECT title, year, rating, rating_count
     FROM movies
-    WHERE genres LIKE '%Horror%' AND year < 1990
-    ORDER BY rating DESC
-    LIMIT 10;
+    WHERE genres LIKE '%Horror%'
+      AND year >= 2010
+      AND rating_count >= 20
+    ORDER BY year DESC, title, id
+    LIMIT 5;
 `))
 
 //problem6
-addPage('problem 6', db.exec(`
+addPage('Problem 6', db.exec(`
     SELECT title, year, rating
-    FROM movies WHERE year < 1990
-    ORDER BY rating DESC
-    LIMIT 4;
+    FROM movies
+    WHERE year < 1990
+      AND rating >= 4
+      AND rating_count >= 50
+    ORDER BY rating DESC, title, id
+    LIMIT 10;
 `))
 
 //problem7
-addPage('problem 7', db.exec(`
-    SELECT title, year, rating
+addPage('Problem 7', db.exec(`
+    SELECT title, genres, rating
     FROM movies
-    WHERE genres LIKE '%Horror & Comedy%' AND rating > 10.0
-    ORDER BY rating DESC
+    WHERE genres LIKE '%Horror%'
+      AND genres LIKE '%Comedy%'
+      AND rating_count >= 10
+    ORDER BY rating DESC, title, id
     LIMIT 5;
 `))
 
 //problem8
-addPage('problem 8', db.exec(`
-    SELECT title, year, rating
+addPage('Problem 8', db.exec(`
+    SELECT title, year, rating_count
     FROM movies
-    WHERE genres LIKE '%Adventure%' AND year BETWEEN 2000 AND 2009
-    ORDER BY rating DESC
+    WHERE year BETWEEN 2000 AND 2009
+      AND rating_count >= 50
+    ORDER BY rating_count DESC, title, id
     LIMIT 5;
 `))
 //close db
